@@ -1,0 +1,83 @@
+\documentclass[12pt]{report}
+%\documentclass[aps,preprint,showpacs,superscriptaddress,
+%groupedaddress,amsmath,amssymb]{revtex4}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bm}
+\usepackage{color}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+%\usepackage{subfig}
+\usepackage{csquotes}
+%\usepackage{diagbox}
+%\usepackage{lipsum}
+%\usepackage{setspace}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ba}{\begin{eqnarray}}
+\newcommand{\ea}{\end{eqnarray}}
+\newcommand{\bd}{\begin{displaymath}}
+\newcommand{\ed}{\end{displaymath}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\di}{{\rm d}}
+\renewcommand{\vec}[1]{\mbox{\boldmath$#1$}}
+%\DeclareMathOperator{\Artanh}{Artanh}
+%\DeclareMathOperator{\Arsinh}{Arsinh}
+
+\begin{document}
+
+\title{A toy model for simulating $\alpha$ particle emissions in p + 11B reactionns at $K_p=$10 MeV via Monte Carlo method}
+
+\author{Angel Reina Ramirez, V. Magas}
+\smallskip
+
+%\affiliation{
+%$^1$Departament de Fisica Quantica i Astrofisica,  
+%Universitat\! de\! Barcelona,  Martí i Franquès 1, 08028 Barcelona, Spain\\
+%$^2$Institut de Ciències del Cosmos,  
+%Universitat\! de\! Barcelona,  Martí i Franquès 1, 08028 Barcelona, Spain\\
+%$^3$Institute of Physics and Technology, University of Bergen,
+%Allegaten 55, 5007 Bergen, Norway\\
+%$^4$Frankfurt Institute for Advanced Studies (FIAS), Ruth-Moufang-Str. 1, 60438, %Frankfurt am Main, Germany\\
+%$^5$Wigner Research Centre for Physics (RCP), XII. Konkoly Thege Miklós út 29-33, %Postbox 49, 1121 Budapest, Hungary\\
+%$^6$Los Alamos National Laboratory, Los Alamos, 87545 New Mexico, USA
+%}
+\maketitle
+\tableofcontents
+%\acknowledgements
+
+\begin{abstract}
+We present a toy model for simulating $\alpha$ particle emissions in p$+$11B reactions at $K_p =$ 10 MeV via Monte Carlo method.  
+Incident proton is accelerated along the z-axes by an oscillating electric field of frequency $\omega$, and its momentum is randomly generated at the moment of the collision. After collision we get an $\alpha$ particle, emitted in z-direction, and an excited 8Be nucleus at rest, which breaks down in two $\alpha$ particles emitted in opposite direction. Pseudorandom number generator Mersenne twister engine algorithm is employed to randomly spawn the emisson angles of $\alpha$ particles. 
+\end{abstract}
+%\date{\today}
+
+%\pacs{25.75.-q, 24.70.+s, 47.32.Ef}
+
+\chapter{Model description}
+Incident proton is accelerated along the z-axes by an oscillating electric field of a given frequency $\omega$:
+\begin{equation}
+\vec{E} = (0,0,E_0cos(\omega t + \phi)).
+\end{equation}
+
+From Newton's third law we get proton momentum:
+\begin{equation}
+F_z = e E_0cos(\omega t + \phi) = \frac{dp_z}{dt},
+\end{equation}
+\begin{equation}
+p_z = \frac{eE_0}{\omega} sin(\omega t + \phi) = p_{z,max} sin(\omega t + \phi),
+\end{equation}
+where $p_{z,max} = \sqrt{2M_pK_p}$.
+
+$\omega t + \phi$ angle is randomly generated  via Mersenne twister engine algorithm at the time of the collision.
+
+
+\section{INITIAL STATE}
+
+\subsection{GESRM}
+
+
+
+\appendix{Appendix I}
+
+\end{document}
