@@ -27,7 +27,7 @@ nofootinbib,amsmath,amssymb]{revtex4}
 
 \begin{document}
 
-\title{A toy model for simulating $\alpha$ particle emissions in p + 11B reactions at $K_p=$10 MeV via Monte Carlo method}
+\title{A toy model for simulating $\alpha$ particle emissions in $p+ ^{11}B \rightarrow 3 \alpha$ reactions\linebreak at $K_p\le$10 MeV via Monte Carlo method}
 
 \author{Angel Reina Ramirez, V. Magas}
 \smallskip
@@ -46,10 +46,9 @@ nofootinbib,amsmath,amssymb]{revtex4}
 
 %\acknowledgements
 
-\begin{abstract}
-We present a toy model for simulating $\alpha$ particle emissions in p$+$11B reactions at $K_p =$ 10 MeV via Monte Carlo method.  
-Incident proton is accelerated along the z-axes by an oscillating electric field of frequency $\omega$, and its momentum is randomly generated at the moment of the collision. After collision, we get an $\alpha$ particle, emitted in z-direction, and an excited 8Be nucleus at rest, which breaks down in two $\alpha$ particles emitted in opposite direction. Pseudorandom number generator Mersenne twister engine algorithm is employed to randomly spawn the emisson angles of $\alpha$ particles. 
-\end{abstract}
+%\begin{abstract}
+
+%\end{abstract}
 %\date{\today}
 \maketitle
 %\tableofcontents
@@ -57,70 +56,8 @@ Incident proton is accelerated along the z-axes by an oscillating electric field
 
 \section{Model description}
 
-
-
-Incident proton is accelerated along the z-axes by an oscillating electric field of frequency $\omega$:
-\begin{equation}
-E_z = E_0cos(\omega t + \phi).
-\end{equation}
-
-From Newton's third law we get proton momentum:
-\begin{equation}
-F_z = e E_0cos(\omega t + \phi) = \frac{dp_z}{dt},
-\end{equation}
-\begin{equation}
-p_z = \frac{eE_0}{\omega} sin(\omega t + \phi) = p_{z,max} sin(\omega t + \phi),
-\end{equation}
-where $p_{z,max} = \sqrt{2M_pK_p}$. Then $\omega t + \phi$ angle is randomly spawned at the time of the collision via the pseudorandom number generator: Mersenne twister engine algorithm. Incident proton collides with a 11B nucleus at rest to produce a 8Be excited nucleus at rest and an $\alpha$ particle moving in the same direction as incident proton. Thus, the polar angle $\theta_1$ at which this $\alpha$ particle is emitted is constrained to two values: $0$ and $\pi$, depending on if incident proton is moving forward or backward, respectively.
-
-
-
-Later on, 8Be excited nucleus breaks down in two $\alpha$ particles moving in opposite direction. The angles $\theta_2$ and $\theta_3$ at which these two $\alpha$ particles are emitted are randonly spawned. Because of momentum conservation law, angle $\theta_3$ is constrained to
-\be
-\theta_3 = \pi - \theta_2,
-\ee
-so, actually, we just have to randomly generate $\theta_2$ angle. Similarly, the azimuthal angles are related by the following relation:
-\be
-\phi_3 = \pi + \phi_2.
-\ee
-Thus, in spherical coordinates the momentum of emitted $\alpha 1$ and $\alpha 2$ particles are 
-
-\be
-\vec{p_{\alpha2}} = p_{\alpha2}\left(sin(\theta_2)cos(\phi_2),sin(\theta_2)sin(\phi_2),cos(\theta_2)\right),
-\ee
-\be
-\vec{p_{\alpha3}} = -p_{\alpha2}\left(sin(\theta_2)cos(\phi_2),sin(\theta_2)sin(\phi_2),cos(\theta_2)\right),
-\ee
-where $p_{\alpha 2}$ is obtained from the energy conservation law,
-\be
-M_p + \frac{p_p^2}{2M_p} + M_{11B} = M_{8Be}^* + M_{\alpha} + \frac{p_{\alpha1}^2}{2M_{\alpha}},
-\ee
-
-\be
-M_{8Be}^* = M_{\alpha} + \frac{p_{\alpha2}^2}{2M_{\alpha}} + M_{\alpha} + \frac{p_{\alpha3}^2}{2M_{\alpha}},
-\ee
-
-\be
-M_p + \frac{p_p^2}{2M_p} + M_{11B} = 3M_{\alpha} + \frac{p_{\alpha1}^2}{2M_{\alpha}} + \frac{p_{\alpha2}^2}{2M_{\alpha}} + \frac{p_{\alpha3}^2}{2M_{\alpha}},
-\ee
-
-\be
-p_{\alpha1}^2 + p_{\alpha2}^2 + p_{\alpha3}^2 = 2M_{\alpha}\left(M_p + \frac{p_p^2}{2M_p} + M_{11B} - 3M_{\alpha}\right),
-\ee
-
-Because of $p_{\alpha2} = p_{\alpha3}$,
-
-\be
-p_{\alpha1}^2 + 2p_{\alpha2}^2 = 2M_{\alpha}\left(M_p + \frac{p_p^2}{2M_p} + M_{11B} - 3M_{\alpha}\right) = x.
-\ee
-
-\be
-p_{\alpha2}^2 = (x - p_{\alpha1}^2) / 2.
-\ee
-
-So, we just have to randomly generate $p_{\alpha1}$, constrained to the interval [0,x].
- 
-In Fig. \ref{Reaction} is illustrated the collision betwen p and 11B nucleus, and its subsequent decay products.
+\subsection{ $p+ ^{11}B \rightarrow 3 \alpha$ reaction}
+We present a toy model for simulating $\alpha$ particle emissions in $p+ ^{11}B \rightarrow 3 \alpha$ reactions. We simulate this reaction in two steps, as it  is illustrated  in Fig. \ref{Reaction}.
 
 \begin{figure}[h]
 	\begin{center}
@@ -133,38 +70,118 @@ In Fig. \ref{Reaction} is illustrated the collision betwen p and 11B nucleus, an
 	\end{center}
 \end{figure} 
 
+In the first step an incident proton with momentum $\vec p_p=(0,0,p_z)$ collides with a $ ^{11}B$ nucleus at rest to produce a $^8Be$ excited nucleus at rest and an $\alpha$ particle moving in the same direction as incident proton. Thus, from the conservation laws, we can obtain: 
+\begin{equation}
+	\vec p_{\alpha1} = \vec p_p=(0,0,p_z)\,,
+	\label{mom1}
+\end{equation}
+\be
+M_p + \frac{p_p^2}{2M_p} + M_{^{11}B} = M_{^8Be}^* + M_{\alpha} + \frac{p_{\alpha1}^2}{2M_{\alpha}}\,.
+	\label{ener1}
+\ee 
+Thus, from Eq. (\ref{mom1}) the polar angle $\theta_1$ at which this first $\alpha$ particle is emitted is constrained to two values: $0$ and $\pi$, depending on if incident proton is moving forward or backward, respectively.
 
+From Eq. (\ref{mom1}) we can find the mass of excited $^8Be$ nucleus
+\be
+M_{^8Be}^* = M_p + M_{^{11}B} -  M_{\alpha} + \frac{p_p^2}{2M_p}  -  \frac{p_{\alpha}^2}{2M_{\alpha}}.
+\label{ex.mass}
+\ee
+
+Later on, in the second step,  $^8Be$ excited nucleus at rest breaks down in two $\alpha$ particles moving in opposite directions. The angles $\theta_2$ and $\theta_3$ at which these two $\alpha$ particles are emitted are randomly generated. Because of momentum conservation law, angle $\theta_3$ is constrained to
+\be
+\theta_3 = \pi - \theta_2,
+\ee
+so, actually, we just have to randomly generate $\theta_2$ angle. Similarly, the azimuthal angles are related by the following relation:
+\be
+\phi_3 = \pi + \phi_2.
+\ee
+Thus, in spherical coordinates the momentum of emitted $\alpha 2$ and $\alpha 3$ particles are 
+\be
+\vec{p_{\alpha2}} = p_{\alpha2}\left(sin(\theta_2)cos(\phi_2),sin(\theta_2)sin(\phi_2),cos(\theta_2)\right),
+\ee
+\be
+\vec{p_{\alpha3}} = -p_{\alpha2}\left(sin(\theta_2)cos(\phi_2),sin(\theta_2)sin(\phi_2),cos(\theta_2)\right),
+\ee
+where $p_{\alpha 2}$ is obtained from the energy conservation law:
+\be
+p_{\alpha 2}=\sqrt{M_\alpha (M_{^8Be}^* - 2 M_\alpha)}\,.
+\label{alpha_for_decay}
+\ee
+
+Please note that such a toy models gives maximal possible peaks of the final alpha distribution in the original proton direction: the first alpha always goes in the original proton directions, while the two $\alpha$'s from $^8Be$ decay move in opposite but random direction.
+
+
+
+\subsection{Proton momentum }
+Incident proton is accelerated along the z-axes by an oscillating electric field of frequency $\omega$:
+\begin{equation}
+E_z = E_0cos(\omega t + \phi)\,,
+\end{equation}
+what gives an oscillating force acting on protons
+\begin{equation}
+F_z = e E_0cos(\omega t + \phi) = \frac{dp_z}{dt}\,,
+\end{equation}
+what finally leads to forced oscillations of the protons. In particular the proton z-momentum oscillates as
+\begin{equation}
+p_z = \frac{eE_0}{\omega} sin(\omega t + \phi) = p_{z,max} sin(\omega t + \phi)\,,
+\end{equation}
+where its amplitude, $p_{z,max} = \sqrt{2M_pK_p}$, is calculated assuming maximal kinetic energy of  the proton to be $K_p=10$ MeV.   
+
+
+
+
+\begin{figure}[h]
+	\begin{center}
+		\resizebox{0.98\columnwidth}{!}
+		{\includegraphics{dNdcostheta.pdf}}
+		\caption{ The angular distribution of the produced $\alpha$'s, $dN/d\cos(\theta_\alpha)$. 
+		}
+		\label{dNdcostheta}
+	\end{center}
+\end{figure} 
+
+Since the time of the collision is not known and can't be controlled the phase of the proton momentum oscillation is randomly chosen via the pseudorandom number generator: Mersenne twister engine algorithm: 
+\begin{equation}
+	p_z =\sqrt{2M_pK_p} sin(\phi_p) \,, \quad \phi_p=2\pi*rand\,.
+\end{equation}
+
+Please note, that if we generate $p_z < p_p^{min}$ from eq. (\ref{threshold1}) this can not generate the studied reaction and just such an event is just ignored.  
+
+
+\begin{figure}[h]
+	\begin{center}
+		\resizebox{0.98\columnwidth}{!}
+		{\includegraphics{dNdK.pdf}}
+		\caption{ the energy distributions of emitted $\alpha$ particles, $dN/dK_{\alpha}$.
+		}
+		\label{dNdK}
+	\end{center}
+\end{figure} 
+
+\subsection{Reaction threshold}
+Eq. (\ref{ex.mass}) shows that the mass of excited $^8Be$ nucleus, produced in the first step of our reaction, is always bigger that its rest mass. This is because our reaction is exothermic,  $M_p + M_{^{11}B} > M_{\alpha}+M_{^8Be}$, and, thus, from the point of view of the strong interaction our reaction has no threshold and can be activated even by a stopped proton. On the other hand in order to approach a $^{11}B$ nucleus our proton has to overcome the Coulomb barrier, which is 
+\begin{equation}
+U_{p+B}=5*\frac{\alpha*\hbar c}{2*R_p+R_{^{11}B}}\simeq 1.61 {\rm MeV},
+\end{equation}
+where $\alpha$ is the fine-structure constant. Out of this equation we can find the minimal proton momentum which can generate the above reaction: 
+\be
+p_p^{min}=\sqrt{2 M_p U_{p+B}}\simeq 55.04\ {\rm MeV}.
+\label{threshold1}
+\ee
 
 \section{Results}
 
-We present the angular and the energy distributions of emitted $\alpha$ particles.
 
-\subsection{Angular distribution of emitted $\alpha$ particles}
-\begin{figure}[h!]
-	\begin{center}
-		\resizebox{0.98\columnwidth}{!}
-		{\includegraphics{dNdcostheta.jpg}}
-		\caption{ (color online)
-			Reaction scheme.
-		}
-		\label{Reaction}
-	\end{center}
-\end{figure} 
 
-\subsection{Energy distribution of emitted $\alpha$ particles}
-\begin{figure}[h!]
-	\begin{center}
-		\resizebox{0.98\columnwidth}{!}
-		{\includegraphics{dNdK.jpg}}
-		\caption{ (color online)
-			Reaction scheme.
-		}
-		\label{Reaction}
-	\end{center}
-\end{figure} 
+In this section we present the results of our study, namely the angular distribution of the produced $\alpha$'s, $dN/d\cos\theta_\alpha$,  in Fig. \ref{dNdcostheta},  and the energy distributions of emitted $\alpha$ particles, $dN/dK_{\alpha}$ in Fig. \ref{dNdK}. Since the final $\alpha$'s are indistinguishable at the moment we take into account all of these, although the experimental setup may require to apply some cuts in angles and energy.  
 
-\section{References}
 
-\appendix{Appendix I}
+
+
+
+
+%\section{References}
+
+%\appendix{Appendix I}
 
 \end{document}
