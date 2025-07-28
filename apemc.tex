@@ -83,7 +83,7 @@ Thus, from Eq. (\ref{mom1}) the polar angle $\theta_1$ at which this first $\alp
 
 From Eq. (\ref{mom1}) we can find the mass of excited $^8Be$ nucleus
 \be
-M_{^8Be}^* = M_p + M_{^{11}B} -  M_{\alpha} + \frac{p_p^2}{2M_p}  -  \frac{p_{\alpha}^2}{2M_{\alpha}}.
+M_{^8Be}^* = M_p + M_{^{11}B} -  M_{\alpha} + \frac{p_p^2}{2M_p}  -  \frac{p_p^2}{2M_{\alpha}}.
 \label{ex.mass}
 \ee
 
@@ -110,7 +110,16 @@ p_{\alpha 2}=\sqrt{M_\alpha (M_{^8Be}^* - 2 M_\alpha)}\,.
 
 Please note that such a toy models gives maximal possible peaks of the final alpha distribution in the original proton direction: the first alpha always goes in the original proton directions, while the two $\alpha$'s from $^8Be$ decay move in opposite but random direction.
 
-
+\subsection{Reaction threshold}
+Eq. (\ref{ex.mass}) shows that the mass of excited $^8Be$ nucleus, produced in the first step of our reaction, is always bigger that its rest mass. This is because our reaction is exothermic,  $M_p + M_{^{11}B} > M_{\alpha}+M_{^8Be}$, and, thus, from the point of view of the strong interaction our reaction has no threshold and can be activated even by a stopped proton. On the other hand in order to approach a $^{11}B$ nucleus our proton has to overcome the Coulomb barrier, which is 
+\begin{equation}
+	U_{p+B}=5*\frac{\alpha*\hbar c}{2*R_p+R_{^{11}B}}\simeq 1.61 {\rm MeV},
+\end{equation}
+where $\alpha$ is the fine-structure constant. Out of this equation we can find the minimal proton momentum which can generate the above reaction: 
+\be
+p_p^{min}=\sqrt{2 M_p U_{p+B}}\simeq 55.04\ {\rm MeV}.
+\label{threshold1}
+\ee
 
 \subsection{Proton momentum }
 Incident proton is accelerated along the z-axes by an oscillating electric field of frequency $\omega$:
@@ -124,6 +133,7 @@ F_z = e E_0cos(\omega t + \phi) = \frac{dp_z}{dt}\,,
 what finally leads to forced oscillations of the protons. In particular the proton z-momentum oscillates as
 \begin{equation}
 p_z = \frac{eE_0}{\omega} sin(\omega t + \phi) = p_{z,max} sin(\omega t + \phi)\,,
+\label{oscl}
 \end{equation}
 where its amplitude, $p_{z,max} = \sqrt{2M_pK_p}$, is calculated assuming maximal kinetic energy of  the proton to be $K_p=10$ MeV.   
 
@@ -143,9 +153,9 @@ where its amplitude, $p_{z,max} = \sqrt{2M_pK_p}$, is calculated assuming maxima
 Since the time of the collision is not known and can't be controlled the phase of the proton momentum oscillation is randomly chosen via the pseudorandom number generator: Mersenne twister engine algorithm: 
 \begin{equation}
 	p_z =\sqrt{2M_pK_p} sin(\phi_p) \,, \quad \phi_p=2\pi*rand\,.
+\label{rand}	
 \end{equation}
 
-Please note, that if we generate $p_z < p_p^{min}$ from eq. (\ref{threshold1}) this can not generate the studied reaction and just such an event is just ignored.  
 
 
 \begin{figure}[h]
@@ -158,24 +168,33 @@ Please note, that if we generate $p_z < p_p^{min}$ from eq. (\ref{threshold1}) t
 	\end{center}
 \end{figure} 
 
-\subsection{Reaction threshold}
-Eq. (\ref{ex.mass}) shows that the mass of excited $^8Be$ nucleus, produced in the first step of our reaction, is always bigger that its rest mass. This is because our reaction is exothermic,  $M_p + M_{^{11}B} > M_{\alpha}+M_{^8Be}$, and, thus, from the point of view of the strong interaction our reaction has no threshold and can be activated even by a stopped proton. On the other hand in order to approach a $^{11}B$ nucleus our proton has to overcome the Coulomb barrier, which is 
-\begin{equation}
-U_{p+B}=5*\frac{\alpha*\hbar c}{2*R_p+R_{^{11}B}}\simeq 1.61 {\rm MeV},
-\end{equation}
-where $\alpha$ is the fine-structure constant. Out of this equation we can find the minimal proton momentum which can generate the above reaction: 
-\be
-p_p^{min}=\sqrt{2 M_p U_{p+B}}\simeq 55.04\ {\rm MeV}.
-\label{threshold1}
-\ee
+
+
+Please note, that if we generate $p_z < p_p^{min}$ from eq. (\ref{threshold1}) this can not initiate the studied reaction and such an event is just ignored.  
+
 
 \section{Results}
 
 
 
-In this section we present the results of our study, namely the angular distribution of the produced $\alpha$'s, $dN/d\cos\theta_\alpha$,  in Fig. \ref{dNdcostheta},  and the energy distributions of emitted $\alpha$ particles, $dN/dK_{\alpha}$ in Fig. \ref{dNdK}. Since the final $\alpha$'s are indistinguishable at the moment we take into account all of these, although the experimental setup may require to apply some cuts in angles and energy.  
+In this section we present the results of our study, namely the angular distribution of the produced $\alpha$'s, $dN/d\cos\theta_\alpha$,  in Fig. \ref{dNdcostheta},  and the energy distributions of emitted $\alpha$ particles, $dN/dK_{\alpha}$ in Fig. \ref{dNdK}. Since the final $\alpha$'s are indistinguishable at the moment we take into account all of these, although the experimental setup may require to apply some cuts in angles and energy. The calculations were performed for 2000 events.  
 
+As it was mentioned before our description always scatters one alpha in the original proton direction, and thus generates peaks is positive and negative directions of Z-axes, i.e. $\theta=0^o$ and $180^o$, as it is clearly seen in Fig. \ref{dNdcostheta}.   
 
+The two peaks of alpha energy distribution, see Fig. \ref{dNdK}, also have a clear explanation. The form of each of these peaks, peaking at forward energy, has to do with the way we generate initial proton momentum, eq. (\ref{rand}). In this equation we generate randomly the (unknown) phase for the oscillating proton momentum, eq. (\ref{oscl}), and due to properties of $\sin$ function the generated proton momenta will concentrate around max and min values, which both 
+correspond to maximal possible kinetic energy $\propto p_p^2$. Consequently we will have more events which correspond to $K_p$ initial proton energy than those which correspond to minimal threshold value $U_{p+B}$.
+
+The first peak in the alpha energy distribution corresponds to the first step of the process, where first alpha get the original proton momentum and thus 25\% of the original proton energy, taking into account the Coulomb threshold $[1.6,10]$ MeV.  
+
+The second peak corresponds to the second step of the process, i.e. to the decay of the excited $^8Be$ nucleus. What happens is that in the $p+B \rightarrow 3 \alpha$ reaction always more than $8$ MeV of energy is released: 
+$$
+2 E_{\alpha_{2}} = M_p + M_{^{11}B} -  3*M_{\alpha} + \frac{p_p^2}{2M_p}  -  \frac{p_p^2}{2M_{\alpha}}
+$$
+\be
+=8.7\ {\rm MeV} +  \frac{p_p^2}{2M_p}  -  \frac{p_p^2}{2M_{\alpha}}.
+\label{alpha2}
+\ee
+This explains the $4.3$ MeV threshold of the second peak. In general, this is good since it allows us to distinguish $\alpha$'s from the first and second step of the reaction by detecting its energy.       
 
 
 
